@@ -3,6 +3,10 @@
 // There is no "main window". This program prints the contents of the
 // clipboard (to demonstrate "copy" functionality), and replaces it
 // with a new string (to demonstrate "paste" functionality).
+//
+// NOTE: If you test this without a clipboard manager running, the
+// new text saved to the clipboard will disappear as soon as this
+// program exits.
 
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
@@ -17,7 +21,7 @@ void text_request_callback(GtkClipboard *clipboard,
     // To demonstrate setting a new value into the clipboard, we
     // choose some text.
     const gchar* new_clipboard_text = "Clipboard test 1";
-    if(g_utf8_collate(text, new_clipboard_text) == 0)
+    if(text == 0 || g_utf8_collate(text, new_clipboard_text) == 0)
     {
         // If the program was already run, and the clipboard contains
         // our string already, use a different string. This way when
@@ -59,6 +63,10 @@ int main(int argc, char** argv)
     // There are more complex things you can place in the clipboard,
     // but this demonstrates text. The callback will be invoked when
     // the clipboard contents has been received.
+    //
+    // For a much simpler method of getting the text in the clipboard,
+    // see gtk_clipboard_wait_for_text(), which is used in the example
+    // program clipboard_watch.
     gtk_clipboard_request_text(clipboard, text_request_callback, &value);
 
     // We have to run the GTK main loop so that the events required to
