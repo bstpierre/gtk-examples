@@ -1,8 +1,18 @@
-<!-- This is a very simple XML UI file. -->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkWindow" id="main_window">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkButton" id="button1">
+        <property name="label" translatable="yes">button</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="use_action_appearance">False</property>
+        <signal name="clicked" handler="handle_button_click" swapped="no"/>
+      </object>
+    </child>
   </object>
 </interface>
